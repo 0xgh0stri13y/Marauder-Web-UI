@@ -153,8 +153,8 @@ blespam -t samsung
 | Chrome  | ✅ Yes  |
 | Edge    | ✅ Yes  |
 | Opera   | ✅ Yes  |
-| Firefox | ❌ No   |
-| Safari  | ❌ No   |
+| Firefox | ✅ Yes  |
+| Safari  | ✅ Yes  |
 
 *Note: Firefox and Safari don't support the Web Serial API*
 
@@ -239,6 +239,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ---
 
-**Made with ☠️ and 💜 by the community**
+**Made with ☠️ and 💜 by 0xgh0stri13y**
 
 *Remember: With great power comes great responsibility. Hack responsibly!*
