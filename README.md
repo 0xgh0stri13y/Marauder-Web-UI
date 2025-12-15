@@ -224,8 +224,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📬 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/marauder-web-ui/issues)
-- **Discord**: [ESP32 Marauder Community](https://discord.gg/yourdiscord)
+- **Issues**: [GitHub Issues](https://github.com/0xgh0stri13y/marauder-web-ui/issues)
 
 ## 🌟 Acknowledgments
 
@@ -235,7 +234,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📸 Screenshots
 
-*Coming soon - Feel free to add your own!*
+*Coming soon !*
 
 ---
 
