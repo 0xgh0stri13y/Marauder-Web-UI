@@ -57,7 +57,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 
 1. **Download the HTML file**
    ```bash
-   git clone https://github.com/yourusername/marauder-web-ui.git
+   git clone https://github.com/0xgh0stri13y/marauder-web-ui.git
    cd marauder-web-ui
    ```
 
