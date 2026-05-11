@@ -5,7 +5,7 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "bruce_esp32.bin", "offset": 0 }
+        { "path": "bruce_esp32.bin", "offset": 65536 }
       ]
     }
   ]

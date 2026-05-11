@@ -5,7 +5,7 @@
     {
       "chipFamily": "ESP32",
       "parts": [
-        { "path": "esp32_marauder_v1_12_1_20260505_marauder_v7.bin", "offset": 0 }
+        { "path": "esp32_marauder_v1_12_1_20260505_marauder_v7.bin", "offset": 65536 }
       ]
     }
   ]

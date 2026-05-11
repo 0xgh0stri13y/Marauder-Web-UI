@@ -97,6 +97,11 @@ If you see output in the terminal, **you're ready to go!** 🎉
 - Try a different USB port
 - Restart your computer
 
+### "flash read err, 1000" (Boot Loop)
+- This usually means the firmware was flashed at the wrong offset or the bootloader is missing.
+- **Solution:** I have updated the manifests to use the correct offset (`0x10000`). 
+- If you still get this error, you may need to flash a "Merged/Full" binary once using a factory tool to restore your ESP32 bootloader.
+
 ### "Permission denied" or "Access denied"
 
 **Solutions:**

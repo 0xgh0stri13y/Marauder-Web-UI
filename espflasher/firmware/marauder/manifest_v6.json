@@ -7,7 +7,7 @@
       "parts": [
         {
           "path": "esp32_marauder_v1_12_1_20260505_v6.bin",
-          "offset": 0
+          "offset": 65536
         }
       ]
     }
