@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for flashing directly from the browser using Web Serial.
 - New clean directory structure (`/css/`, `/js/`, `/espflasher/`).
 - Shared **Neon Obsidian** design system across all pages.
+- Custom dark theme for **ESP Web Tools** flasher dialogs and logs.
 - Navigation links updated to use directory-based routing (clean URLs without `.html`).
 
 ### Changed

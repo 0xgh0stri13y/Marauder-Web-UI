@@ -5,6 +5,16 @@
     --c-div: #2962ff;
     --c-clown: #ff0055;
     --c-biscuit: #ff9100;
+    
+    /* ESP Web Tools Theme Overrides */
+    --esp-tools-button-color: var(--accent-cyan);
+    --esp-tools-button-text-color: #000;
+    --esp-tools-dialog-background-color: #08080c;
+    --esp-tools-dialog-text-color: #ffffff;
+    --esp-tools-dialog-accent-color: var(--accent-cyan);
+    --esp-tools-dialog-border-radius: 16px;
+    --esp-tools-logs-background-color: #000000;
+    --esp-tools-logs-text-color: var(--accent-green);
 }
 
 /* Hero */
