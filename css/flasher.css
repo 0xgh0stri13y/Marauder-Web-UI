@@ -6,6 +6,8 @@
     --c-clown: #ff0055;
     --c-biscuit: #ff9100;
     
+    color-scheme: dark;
+    
     /* ESP Web Tools Theme Overrides */
     --esp-tools-button-color: var(--accent-cyan);
     --esp-tools-button-text-color: #000;
@@ -15,6 +17,41 @@
     --esp-tools-dialog-border-radius: 16px;
     --esp-tools-logs-background-color: #000000;
     --esp-tools-logs-text-color: var(--accent-green);
+    
+    /* MDC (Material Design) Overrides for internal dialogs */
+    --mdc-theme-primary: var(--accent-cyan);
+    --mdc-theme-on-primary: #000;
+    --mdc-theme-surface: #08080c;
+    --mdc-theme-on-surface: #ffffff;
+    --mdc-dialog-heading-ink-color: #ffffff;
+    --mdc-dialog-content-ink-color: rgba(255, 255, 255, 0.8);
+}
+
+/* Force inheritance for the web component and its internal dialogs */
+esp-web-install-button, 
+ewt-install-dialog,
+ewt-device-selection-dialog {
+    --ewt-dialog-background-color: #08080c;
+    --ewt-dialog-text-color: #ffffff;
+    --ewt-dialog-button-color: var(--accent-cyan);
+    --esp-tools-dialog-background-color: #08080c;
+    --esp-tools-dialog-text-color: #ffffff;
+    --esp-tools-dialog-accent-color: var(--accent-cyan);
+    --mdc-theme-surface: #08080c;
+    --mdc-theme-on-surface: #ffffff;
+    --mdc-theme-primary: var(--accent-cyan);
+    --mdc-theme-on-primary: #000;
+    --mdc-dialog-heading-ink-color: #ffffff;
+    --mdc-dialog-content-ink-color: rgba(255, 255, 255, 0.8);
+    background-color: transparent;
+}
+
+/* Ensure global variables are set for any dynamically created dialogs */
+:root, body {
+    --ewt-dialog-background-color: #08080c;
+    --ewt-dialog-text-color: #ffffff;
+    --mdc-theme-surface: #08080c;
+    --mdc-theme-on-surface: #ffffff;
 }
 
 /* Hero */

@@ -1,11 +1,13 @@
 {
-  "name": "Biscuit",
-  "version": "latest",
+  "name": "Biscuit Node",
+  "version": "1.2.5",
   "builds": [
     {
-      "chipFamily": "ESP32-C3",
+      "chipFamily": "ESP32-C5",
       "parts": [
-        { "path": "biscuit.bin", "offset": 65536 }
+        { "path": "biscuit_node_c5_bootloader.bin", "offset": 8192 },
+        { "path": "biscuit_node_c5_partitions.bin", "offset": 32768 },
+        { "path": "biscuit_node_c5.bin", "offset": 65536 }
       ]
     }
   ]
