@@ -5,7 +5,7 @@
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "bruce_esp32s3.bin", "offset": 65536 }
+        { "path": "Bruce-esp32-s3-devkitc-1.bin", "offset": 0 }
       ]
     }
   ]
