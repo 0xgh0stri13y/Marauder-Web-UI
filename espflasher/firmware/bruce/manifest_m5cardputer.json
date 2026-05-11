@@ -5,7 +5,7 @@
     {
       "chipFamily": "ESP32-S3",
       "parts": [
-        { "path": "bruce_m5cardputer.bin", "offset": 65536 }
+        { "path": "Bruce-m5stack-cardputer.bin", "offset": 0 }
       ]
     }
   ]
