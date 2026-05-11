@@ -1,0 +1,12 @@
+{
+  "name": "ESP32 Marauder (M5 Cardputer)",
+  "version": "1.12.1",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "esp32_marauder_v1_12_1_20260505_m5cardputer.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

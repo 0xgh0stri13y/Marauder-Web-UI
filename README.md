@@ -46,10 +46,16 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 - Add custom SSIDs to your list
 - Clear all selections with one click
 
+### ⚡ Integrated Firmware Flasher
+- **Zero Setup Flashing** - Flash ESP32 devices directly from your browser via Web Serial
+- **Multi-Tool Support** - Instantly deploy Marauder, Bruce, nRFBox, ESP32-DIV, RF-Clown, and Biscuit
+- **Smart Manifests** - Select your specific board variant and flash seamlessly
+- **No Downloads** - Pulls the latest binaries directly via `esp-web-tools`
+
 ## 🚀 Quick Start
 
 ### Prerequisites
-- **ESP32 Marauder** flashed on your ESP32 device
+- **ESP32 device** with Marauder firmware (or use our built-in flasher!)
 - **Chrome, Edge, or Opera browser** (Web Serial API support required)
 - **USB cable** to connect ESP32 to your computer
 
@@ -66,10 +72,10 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
    - Or drag and drop the file into your browser
 
 3. **Connect Your Device**
-   - Plug in your ESP32 Marauder via USB
-   - Click the **"Connect"** button in the top right
-   - Select your ESP32 device from the popup
-   - Start hacking! 🎯
+   - Plug in your ESP32 via USB.
+   - If your device is blank, click **"Firmware Flasher"** in the navbar to install Marauder or other tools.
+   - Once flashed, return to the **Control Center** and click **"Connect"**.
+   - Select your device and start hacking! 🎯
 
 ## 📖 How to Use
 
@@ -140,11 +146,10 @@ blespam -t samsung
 
 ## 🔧 Technical Details
 
-### Built With
-- **HTML5** - Structure
-- **CSS3** - Glassmorphic design with animations
-- **Vanilla JavaScript** - No dependencies!
+- **HTML5 & CSS3** - Modern structured design
+- **Vanilla JavaScript** - Clean, modular logic
 - **Web Serial API** - Browser-to-device communication
+- **ESP Web Tools** - Integrated firmware flashing engine
 
 ### Browser Compatibility
 
