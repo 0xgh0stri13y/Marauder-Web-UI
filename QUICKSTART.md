@@ -8,7 +8,7 @@ Before you begin, make sure you have:
 
 - [ ] **ESP32 device** (any variant)
 - [ ] **ESP32 Marauder firmware** flashed on your device
-  - Use the built-in **Firmware Flasher** in this UI!
+  - Use the **Null Loader** to flash it!
   - Or download from: https://github.com/justcallmekoko/ESP32Marauder
 - [ ] **USB cable** that supports data (not just power)
 - [ ] **Compatible browser** (Chrome, Edge, or Opera)
@@ -35,7 +35,7 @@ cd marauder-web-ui
 ### 2. Flash ESP32 Marauder (if not already done)
 
 **Easy Method - Built-in Web Flasher:**
-1. Open the UI and click **"Firmware Flasher"** in the navbar.
+1. Open the UI and click **"Null Loader"** in the navbar.
 2. Connect your ESP32 via USB.
 3. Select your board variant and click **"Flash Firmware"**.
 4. Wait for completion (~2-5 minutes).

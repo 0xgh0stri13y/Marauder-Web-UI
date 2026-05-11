@@ -46,7 +46,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 - Add custom SSIDs to your list
 - Clear all selections with one click
 
-### ⚡ Integrated Firmware Flasher
+### 🌑 Null Loader (Standalone Flasher)
 - **Zero Setup Flashing** - Flash ESP32 devices directly from your browser via Web Serial
 - **Multi-Tool Support** - Instantly deploy Marauder, Bruce, nRFBox, ESP32-DIV, RF-Clown, and Biscuit
 - **Smart Manifests** - Select your specific board variant and flash seamlessly
@@ -73,7 +73,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 
 3. **Connect Your Device**
    - Plug in your ESP32 via USB.
-   - If your device is blank, click **"Firmware Flasher"** in the navbar to install Marauder or other tools.
+   - If your device is blank, click **"Null Loader"** in the navbar to install Marauder or other tools.
    - Once flashed, return to the **Control Center** and click **"Connect"**.
    - Select your device and start hacking! 🎯
 

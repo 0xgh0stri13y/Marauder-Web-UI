@@ -5,6 +5,16 @@ All notable changes to the Marauder Web UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-05-12
+
+### Changed
+- Separated the **Firmware Flasher** into a standalone repository called **Null Loader**.
+- Updated navigation links to point to the external **Null Loader** project.
+
+### Removed
+- All firmware binaries and flashing manifests (moved to Null Loader).
+- Integrated `espflasher` directory (moved to Null Loader).
+
 ## [2.0.0] - 2026-05-11
 
 ### Added
