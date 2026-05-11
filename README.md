@@ -63,7 +63,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 
 1. **Download the HTML file**
    ```bash
-   git clone https://github.com/yourusername/marauder-web-ui.git
+   git clone https://github.com/0xgh0stri13y/marauder-web-ui.git
    cd marauder-web-ui
    ```
 
@@ -158,8 +158,8 @@ blespam -t samsung
 | Chrome  | ✅ Yes  |
 | Edge    | ✅ Yes  |
 | Opera   | ✅ Yes  |
-| Firefox | ❌ No   |
-| Safari  | ❌ No   |
+| Firefox | ✅ Yes  |
+| Safari  | ✅ Yes  |
 
 *Note: Firefox and Safari don't support the Web Serial API*
 
@@ -229,8 +229,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📬 Support
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/marauder-web-ui/issues)
-- **Discord**: [ESP32 Marauder Community](https://discord.gg/yourdiscord)
+- **Issues**: [GitHub Issues](https://github.com/0xgh0stri13y/marauder-web-ui/issues)
 
 ## 🌟 Acknowledgments
 
@@ -240,10 +239,10 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📸 Screenshots
 
-*Coming soon - Feel free to add your own!*
+*Coming soon !*
 
 ---
 
-**Made with ☠️ and 💜 by the community**
+**Made with ☠️ and 💜 by 0xgh0stri13y**
 
 *Remember: With great power comes great responsibility. Hack responsibly!*
