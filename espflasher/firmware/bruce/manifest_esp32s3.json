@@ -1,0 +1,12 @@
+{
+  "name": "Bruce (ESP32-S3)",
+  "version": "1.14",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "bruce_esp32s3.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

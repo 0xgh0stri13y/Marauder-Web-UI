@@ -1,0 +1,56 @@
+:root {
+    --bg-obsidian: #08080c;
+    --surface-dark: #12121a;
+    --surface-light: #1a1a24;
+    --border: #232332;
+    --text-primary: #ffffff;
+    --text-secondary: #8a8f98;
+    --accent-cyan: #00e5ff;
+    --accent-purple: #b400ff;
+    --accent-green: #00ff66;
+    --accent-red: #ff2a2a;
+    --accent-orange: #ff9100;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Inter', sans-serif; background-color: var(--bg-obsidian); color: var(--text-primary);
+    min-height: 100vh; overflow-x: hidden; padding-top: 100px;
+    background-image: radial-gradient(circle at top right, rgba(180, 0, 255, 0.05), transparent 40%),
+                      radial-gradient(circle at bottom left, rgba(0, 229, 255, 0.05), transparent 40%);
+    background-attachment: fixed;
+}
+
+body::before {
+    content: ''; position: fixed; inset: 0; z-index: -1;
+    background-image: linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(circle at center 30%, black, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center 30%, black, transparent 80%);
+}
+
+/* Common Navbar */
+.navbar {
+    position: fixed; top: 24px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px; padding: 6px;
+    background: rgba(18, 18, 26, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border); border-radius: 40px; z-index: 100;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.nav-link {
+    padding: 8px 24px; border-radius: 30px; text-decoration: none; font-family: 'Space Grotesk', sans-serif;
+    font-weight: 600; font-size: 0.9rem; color: var(--text-secondary); transition: all 0.3s;
+}
+
+.nav-link:hover { color: var(--text-primary); }
+
+.nav-link.active {
+    background: var(--surface-light); color: var(--accent-cyan);
+    border: 1px solid rgba(0, 229, 255, 0.2); box-shadow: 0 0 15px rgba(0, 229, 255, 0.1);
+}
+
+@keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes slideDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }

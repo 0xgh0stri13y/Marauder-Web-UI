@@ -5,6 +5,25 @@ All notable changes to the Marauder Web UI will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-05-11
+
+### Added
+- Integrated **Firmware Flasher** for multiple devices (Marauder, Bruce, nRFBox, ESP32-DIV, RF-Clown, Biscuit).
+- Support for flashing directly from the browser using Web Serial.
+- New clean directory structure (`/css/`, `/js/`, `/espflasher/`).
+- Shared **Neon Obsidian** design system across all pages.
+- Navigation links updated to use directory-based routing (clean URLs without `.html`).
+
+### Changed
+- Refactored entire codebase into modular CSS and JS files for better performance and maintainability.
+- Updated Marauder v6.1 to v6 in the flasher manifest.
+- Consolidated all firmware files into `/espflasher/firmware/`.
+- Moved flasher interface to `/espflasher/index.html`.
+
+### Removed
+- Legacy single-file `flasher.html` and `espflasher.html`.
+- Inline styles and scripts from main HTML files.
+
 ## [1.0.0] - 2025-12-15
 
 ### Added

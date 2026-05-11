@@ -1,0 +1,12 @@
+{
+  "name": "ESP32 Marauder (v8)",
+  "version": "1.12.1",
+  "builds": [
+    {
+      "chipFamily": "ESP32",
+      "parts": [
+        { "path": "esp32_marauder_v1_12_1_20260505_v8.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

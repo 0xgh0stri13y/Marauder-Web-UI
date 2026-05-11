@@ -1,0 +1,12 @@
+{
+  "name": "Bruce (M5 Cardputer)",
+  "version": "1.14",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "bruce_m5cardputer.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

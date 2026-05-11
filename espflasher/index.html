@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESP32 Web Flasher | Neon Obsidian</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <script type="module" src="https://unpkg.com/esp-web-tools@10/dist/web/install-button.js?module"></script>
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/flasher.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <a href="../" class="nav-link">Control Center</a>
+        <a href="./" class="nav-link active">Firmware Flasher</a>
+    </nav>
+
+    <div class="container">
+        <div class="hero">
+            <div class="decode-text"><span>Firmware Flasher</span></div>
+            <p>Deploy security toolkits directly from your browser.<br>Zero setup. No downloads required.</p>
+        </div>
+
+        <div class="alert">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z" />
+                <line x1="12" y1="9" x2="12" y2="13" />
+                <line x1="12" y1="17" x2="12.01" y2="17" />
+            </svg>
+            Requires Chrome/Edge and a connected ESP32 device via USB.
+        </div>
+
+        <div class="no-webserial" id="no-webserial">
+            [ERROR] Web Serial API is required. Please use Google Chrome or Microsoft Edge.
+        </div>
+
+        <div class="grid">
+            <!-- Marauder -->
+            <div class="card c-marauder">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://raw.githubusercontent.com/justcallmekoko/ESP32Marauder/master/pictures/marauder3L.jpg" alt="Marauder"></div>
+                    <div class="title-group">
+                        <div class="card-title">Marauder</div>
+                        <span class="card-version">v1.12.1</span>
+                    </div>
+                </div>
+                <div class="card-desc">Offensive & defensive toolkit. Packet sniffing, deauth, beacon spam, wardriving, and more.</div>
+                <div class="tags">
+                    <span class="tag">ESP32</span><span class="tag">S2</span><span class="tag">S3</span><span class="tag">C5</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="marauder-variant" onchange="updateManifest('marauder')">
+                        <option value="v8">Board: Marauder v8</option>
+                        <option value="v7">Board: Marauder v7</option>
+                        <option value="v6">Board: Marauder v6</option>
+                        <option value="flipper">Board: Flipper Zero Dev Board</option>
+                        <option value="m5cardputer">Board: M5 Cardputer</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="marauder-flash" manifest="firmware/marauder/manifest_v8.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/justcallmekoko/ESP32Marauder" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Bruce -->
+            <div class="card c-bruce">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://raw.githubusercontent.com/BruceDevices/firmware/main/media/pictures/bruce_banner.jpg" alt="Bruce"></div>
+                    <div class="title-group">
+                        <div class="card-title">Bruce</div>
+                        <span class="card-version">v1.14</span>
+                    </div>
+                </div>
+                <div class="card-desc">Predatory ESP32 multi-tool. WiFi attacks, BLE spam, BadUSB, RF tools, and wardriving.</div>
+                <div class="tags">
+                    <span class="tag">ESP32</span><span class="tag">S3</span><span class="tag">C3</span><span class="tag">C5</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="bruce-variant" onchange="updateManifest('bruce')">
+                        <option value="esp32">Board: ESP32 Generic</option>
+                        <option value="esp32s3">Board: ESP32-S3</option>
+                        <option value="m5cardputer">Board: M5 Cardputer</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="bruce-flash" manifest="firmware/bruce/manifest_esp32.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/BruceDevices/firmware" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- nRFBox -->
+            <div class="card c-nrf">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://avatars.githubusercontent.com/u/62047601" alt="nRFBox"></div>
+                    <div class="title-group">
+                        <div class="card-title">nRFBox</div>
+                        <span class="card-version">v2.7.2</span>
+                    </div>
+                </div>
+                <div class="card-desc">Scan, jam, and spoof BLE, WiFi, and 2.4GHz networks utilizing nRF24 modules.</div>
+                <div class="tags">
+                    <span class="tag">ESP32-WROOM</span><span class="tag">nRF24L01+</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="nrfbox-variant" onchange="updateManifest('nrfbox')">
+                        <option value="default">Board: nRFBox Default</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="nrfbox-flash" manifest="firmware/nrfbox/manifest_default.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/cifertech/nRFBox" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- ESP32-DIV -->
+            <div class="card c-div">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://avatars.githubusercontent.com/u/62047601" alt="ESP32-DIV"></div>
+                    <div class="title-group">
+                        <div class="card-title">ESP32-DIV</div>
+                        <span class="card-version">v1.5.3</span>
+                    </div>
+                </div>
+                <div class="card-desc">Wireless offensive/defensive kit. WiFi deauth, BLE spoof, IR control, and probe flood.</div>
+                <div class="tags">
+                    <span class="tag">ESP32</span><span class="tag">S3</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="esp32div-variant" onchange="updateManifest('esp32div')">
+                        <option value="default">Board: ESP32-DIV Default</option>
+                        <option value="s3">Board: ESP32-S3</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="esp32div-flash" manifest="firmware/esp32div/manifest_default.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/cifertech/ESP32-DIV" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- RF-Clown -->
+            <div class="card c-clown">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://avatars.githubusercontent.com/u/62047601" alt="RF-Clown"></div>
+                    <div class="title-group">
+                        <div class="card-title">RF-Clown</div>
+                        <span class="card-version">v2.0.0</span>
+                    </div>
+                </div>
+                <div class="card-desc">BLE & Bluetooth jammer featuring a dual nRF24L01+ module setup for wider coverage.</div>
+                <div class="tags">
+                    <span class="tag">WROOM-32U</span><span class="tag">nRF24L01+</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="rfclown-variant" onchange="updateManifest('rfclown')">
+                        <option value="default">Board: RF-Clown Default</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="rfclown-flash" manifest="firmware/rfclown/manifest_default.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/cifertech/RF-Clown" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Biscuit -->
+            <div class="card c-biscuit">
+                <div class="card-header">
+                    <div class="icon-wrap"><img src="https://raw.githubusercontent.com/yattsu/biscuit/master/docs/images/homescreen.jpeg" alt="Biscuit" class="contain"></div>
+                    <div class="title-group">
+                        <div class="card-title">Biscuit</div>
+                        <span class="card-version">latest</span>
+                    </div>
+                </div>
+                <div class="card-desc">Firmware for the ESP32-C3 SoC. E-paper display reader with wireless capabilities.</div>
+                <div class="tags">
+                    <span class="tag">ESP32-C3</span>
+                </div>
+                <div class="select-wrapper">
+                    <select class="custom-select" id="biscuit-variant" onchange="updateManifest('biscuit')">
+                        <option value="default">Board: Biscuit Default</option>
+                    </select>
+                    <svg class="select-icon" viewBox="0 0 24 24">
+                        <path d="M6 9l6 6 6-6" />
+                    </svg>
+                </div>
+                <div class="card-actions">
+                    <esp-web-install-button id="biscuit-flash" manifest="firmware/biscuit/manifest_default.json">
+                        <button slot="activate">Flash Firmware</button>
+                    </esp-web-install-button>
+                    <a href="https://github.com/yattsu/biscuit" target="_blank" class="btn-gh" title="GitHub Repository">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>For <strong>authorized security testing and educational purposes only</strong>.</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="../js/flasher.js"></script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "name": "ESP32-DIV (S3)",
+  "version": "1.5.3",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S3",
+      "parts": [
+        { "path": "ESP32-DIV_S3.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

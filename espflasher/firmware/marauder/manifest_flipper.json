@@ -1,0 +1,12 @@
+{
+  "name": "ESP32 Marauder (Flipper)",
+  "version": "1.12.1",
+  "builds": [
+    {
+      "chipFamily": "ESP32-S2",
+      "parts": [
+        { "path": "esp32_marauder_v1_12_1_20260505_flipper.bin", "offset": 0 }
+      ]
+    }
+  ]
+}

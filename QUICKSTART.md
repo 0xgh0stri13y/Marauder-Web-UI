@@ -8,8 +8,8 @@ Before you begin, make sure you have:
 
 - [ ] **ESP32 device** (any variant)
 - [ ] **ESP32 Marauder firmware** flashed on your device
-  - Download from: https://github.com/justcallmekoko/ESP32Marauder
-  - Or use: https://esp32.huhn.me/ for easy flashing
+  - Use the built-in **Firmware Flasher** in this UI!
+  - Or download from: https://github.com/justcallmekoko/ESP32Marauder
 - [ ] **USB cable** that supports data (not just power)
 - [ ] **Compatible browser** (Chrome, Edge, or Opera)
 - [ ] **Basic WiFi/security knowledge**
@@ -28,17 +28,17 @@ cd marauder-web-ui
 - Click "Code" → "Download ZIP" on GitHub
 - Extract the ZIP file to your preferred location
 
-**Option C: Single file download**
-- Download `index.html` directly
-- That's all you need!
+**Option C: Use the hosted version**
+- Visit the live site (if available) to use it instantly.
+- No installation needed!
 
 ### 2. Flash ESP32 Marauder (if not already done)
 
-**Easy Method - Web Flasher:**
-1. Go to: https://esp32.huhn.me/
-2. Connect your ESP32 via USB
-3. Click "Flash" and follow instructions
-4. Wait for completion (~2-5 minutes)
+**Easy Method - Built-in Web Flasher:**
+1. Open the UI and click **"Firmware Flasher"** in the navbar.
+2. Connect your ESP32 via USB.
+3. Select your board variant and click **"Flash Firmware"**.
+4. Wait for completion (~2-5 minutes).
 
 **Advanced Method - Build from source:**
 ```bash

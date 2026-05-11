@@ -1,0 +1,12 @@
+{
+  "name": "Biscuit",
+  "version": "latest",
+  "builds": [
+    {
+      "chipFamily": "ESP32-C3",
+      "parts": [
+        { "path": "biscuit.bin", "offset": 0 }
+      ]
+    }
+  ]
+}
