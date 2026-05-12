@@ -64,17 +64,10 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 
 ### Usage
 
-1. **Download the HTML file**
-   ```bash
-   git clone https://github.com/0xgh0stri13y/marauder-web-ui.git
-   cd marauder-web-ui
-   ```
+1. **Open in Browser**
+   - **Visit The Site:** Access the live application at [https://0xgh0stri13y.github.io/Marauder-Web-UI/](https://0xgh0stri13y.github.io/Marauder-Web-UI/)
 
-2. **Open in Browser**
-   - **Easiest:** Access the live application at [https://0xgh0stri13y.github.io/Marauder-Web-UI/](https://0xgh0stri13y.github.io/Marauder-Web-UI/)
-   - **Local:** Simply open your local `index.html` in Chrome, Edge, or Opera
-
-3. **Connect Your Device**
+2. **Connect Your Device**
    - Plug in your ESP32 via USB.
    - If your device is blank, click **"Null Loader"** in the navbar to install Marauder or other tools.
    - Once flashed, return to the **Control Center** and click **"Connect"**.
