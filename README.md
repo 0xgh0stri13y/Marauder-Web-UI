@@ -51,6 +51,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 - **Multi-Tool Support** - Instantly deploy Marauder, Bruce, nRFBox, ESP32-DIV, RF-Clown, and Biscuit
 - **Smart Manifests** - Select your specific board variant and flash seamlessly
 - **No Downloads** - Pulls the latest binaries directly via `esp-web-tools`
+- **Access the Flasher** - Visit [null-loader.alensebastian.in](https://null-loader.alensebastian.in) to flash your devices.
 
 ## 🚀 Quick Start
 
