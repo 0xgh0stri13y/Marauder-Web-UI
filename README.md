@@ -69,7 +69,7 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 
 2. **Connect Your Device**
    - Plug in your ESP32 via USB.
-   - If your device is blank, click **"Null Loader"** in the navbar to install Marauder or other tools.
+   - If your device is blank, visit the **[Null Loader Flasher](https://null-loader.alensebastian.in)** to install Marauder or other tools.
    - Once flashed, return to the **Control Center** and click **"Connect"**.
    - Select your device and start hacking! 🎯
 
