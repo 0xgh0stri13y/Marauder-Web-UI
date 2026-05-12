@@ -2,6 +2,8 @@
 
 A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetooth penetration testing tool. Control your ESP32 Marauder directly from your browser using the Web Serial API - no installation required!
 
+🌐 **Access the Live App**: [https://0xgh0stri13y.github.io/Marauder-Web-UI/](https://0xgh0stri13y.github.io/Marauder-Web-UI/)
+
 ![ESP32 Marauder](https://img.shields.io/badge/ESP32-Marauder-purple)
 ![Web Serial API](https://img.shields.io/badge/Web_Serial-API-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -69,8 +71,8 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
    ```
 
 2. **Open in Browser**
-   - Simply open `index.html` in Chrome, Edge, or Opera
-   - Or drag and drop the file into your browser
+   - **Easiest:** Access the live application at [https://0xgh0stri13y.github.io/Marauder-Web-UI/](https://0xgh0stri13y.github.io/Marauder-Web-UI/)
+   - **Local:** Simply open your local `index.html` in Chrome, Edge, or Opera
 
 3. **Connect Your Device**
    - Plug in your ESP32 via USB.
