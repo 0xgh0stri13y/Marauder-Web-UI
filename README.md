@@ -8,6 +8,10 @@ A beautiful, modern web-based control center for the ESP32 Marauder WiFi/Bluetoo
 ![Web Serial API](https://img.shields.io/badge/Web_Serial-API-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
 
+## 📸 Screenshots
+
+![Marauder Web UI Control Center](assets/ui_preview.png)
+
 ## ✨ Features
 
 ### 🎨 Modern UI/UX
@@ -232,10 +236,6 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 - **justcallmekoko** - Creator of ESP32 Marauder firmware
 - **Web Serial API** - Making browser hardware access possible
 - **ESP32 Community** - For all the amazing projects
-
-## 📸 Screenshots
-
-![Marauder Web UI Control Center](assets/ui_preview.png)
 
 ---
 
