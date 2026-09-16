@@ -235,7 +235,7 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📸 Screenshots
 
-*Coming soon !*
+![Marauder Web UI Control Center](assets/ui_preview.png)
 
 ---
 
