@@ -4,101 +4,179 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ESP32 Marauder | Control Center</title>
+    <meta name="description" content="Premium web-based control center for the ESP32 Marauder WiFi/Bluetooth penetration testing tool. Connect via Web Serial API.">
+    <meta property="og:title" content="ESP32 Marauder Control Center">
+    <meta property="og:description" content="Control your ESP32 Marauder directly from the browser with a premium cyberpunk interface.">
+    <meta property="og:type" content="website">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     
     <!-- Styles -->
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/control.css">
+    <link rel="stylesheet" href="css/display.css">
 </head>
 <body>
     <nav class="navbar">
-        <a href="./" class="nav-link active">Control Center</a>
+        <a href="./" class="nav-link active">☠️ Control Center</a>
     </nav>
 
-    <div class="dashboard">
+    <main class="dashboard">
         
-        <!-- Row 1: Connection & Terminal -->
+        <!-- ═══ Row 1: Connection + Terminal ═══ -->
         <div class="bento-row grid-top">
             <div class="bento-col anim-1">
-                <div class="panel">
-                    <div class="panel-title cyan">Connection</div>
+                <!-- Connection Panel -->
+                <section class="panel" id="connection-panel">
+                    <div class="panel-title cyan">
+                        <span class="icon cyan">🔌</span> Connection
+                    </div>
                     <div class="connection-box">
                         <div class="status-wrapper" id="status-wrapper">
                             <span class="status-indicator"></span>
                             <span id="status">Not connected</span>
                         </div>
                         <div class="conn-buttons">
-                            <button class="btn" id="connect-btn">Connect</button>
-                            <button class="btn" id="disconnect-btn" disabled>Disconnect</button>
+                            <button class="btn" id="connect-btn">⚡ Connect</button>
+                            <button class="btn" id="disconnect-btn" disabled>⏏ Disconnect</button>
                         </div>
                     </div>
-                </div>
+                </section>
                 
-                <div class="panel" style="flex-grow: 1;">
-                    <div class="panel-title">Helper Commands</div>
-                    <div class="btn-grid-large">
-                        <button class="action-btn" id="select-ap-btn">Select APs</button>
-                        <button class="action-btn" id="select-sta-btn">Select Stations</button>
-                        <button class="action-btn" id="generate-ssid-btn">Gen SSIDs</button>
-                        <button class="action-btn" id="add-ssid-btn">Add SSID</button>
-                        <button class="action-btn" id="clear-select-btn" style="grid-column: span 2; color: var(--accent-red); border-color: rgba(255,42,42,0.2);">Clear All Selections</button>
+
+
+                <!-- Helper Commands Panel -->
+                <section class="panel" style="flex-grow: 1;">
+                    <div class="panel-title">
+                        <span class="icon cyan">🛠</span> Helper Commands
                     </div>
-                </div>
+                    <div class="btn-grid-large">
+                        <button class="action-btn" id="select-ap-btn">📡 Select APs</button>
+                        <button class="action-btn" id="select-sta-btn">📱 Select Stations</button>
+                        <button class="action-btn" id="generate-ssid-btn">🎲 Gen SSIDs</button>
+                        <button class="action-btn" id="add-ssid-btn">✏️ Add SSID</button>
+                        <button class="action-btn btn-danger-wide" id="clear-select-btn">🗑 Clear All Selections</button>
+                    </div>
+                </section>
             </div>
 
-            <div class="panel anim-2" style="display: flex; flex-direction: column;">
+            <!-- Terminal & Display Panel -->
+            <section class="panel anim-2" style="display: flex; flex-direction: column;">
                 <div class="terminal-header">
-                    <div class="panel-title" style="margin: 0;">Terminal Output</div>
+                    <div class="panel-title" style="margin: 0;">
+                        <span class="icon green">▶</span> Command & Control
+                    </div>
                     <div class="terminal-controls">
-                        <button class="btn-small" id="clear-terminal-btn">Clear</button>
-                        <button class="btn-small" id="autoscroll-btn">Auto-scroll: ON</button>
+                        <button class="btn-small" id="export-terminal-btn">📥 Export</button>
+                        <button class="btn-small" id="clear-terminal-btn">🗑 Clear</button>
+                        <button class="btn-small" id="autoscroll-btn">⬇ Auto-scroll: ON</button>
                     </div>
                 </div>
-                <div id="terminal"></div>
-                <input id="command-input" placeholder="Type Marauder command (e.g. scanap, sniffbt, help) and press Enter..." autocomplete="off">
-            </div>
+                
+                <div class="terminal-display-container">
+                    <div class="display-housing">
+                        <div class="tft-screen powered" id="tft-screen">
+                            <div class="tft-statusbar">
+                                <div class="tft-status-left">
+                                    <span class="tft-conn-dot" id="tft-conn-dot"></span>
+                                    <span id="tft-status-text">Booting...</span>
+                                </div>
+                                <div class="tft-status-right">
+                                    <span>☠️ v0.13</span>
+                                </div>
+                            </div>
+                            <div class="tft-content" id="tft-content"></div>
+                        </div>
+                        <div class="display-power-led on" id="display-power-led"></div>
+                        <div class="display-label">ESP32</div>
+                    </div>
+                    <div id="terminal"></div>
+                </div>
+                
+                <input id="command-input" placeholder="Type a Marauder command and press Enter..." autocomplete="off" spellcheck="false">
+            </section>
         </div>
 
-        <!-- Row 2: Recon & Scanner -->
+        <!-- ═══ Row 2: WiFi Recon + Bluetooth + Utility ═══ -->
         <div class="bento-row grid-3">
-            <div class="panel anim-3">
-                <div class="panel-title cyan">Wi-Fi Recon</div>
+            <!-- WiFi Recon Panel -->
+            <section class="panel anim-3">
+                <div class="panel-title cyan">
+                    <span class="icon cyan">📡</span> Wi-Fi Recon
+                </div>
                 <div class="btn-grid">
-                    <button class="action-btn" data-cmd="scanap">Scan APs</button>
-                    <button class="action-btn" data-cmd="scansta">Scan Stations</button>
-                    <button class="action-btn" data-cmd="scanall">Scan All</button>
-                    <button class="action-btn" data-cmd="stopscan">Stop Scan</button>
-                    <button class="action-btn" data-cmd="sniffbeacon">Sniff Beacons</button>
-                    <button class="action-btn" data-cmd="sniffdeauth">Sniff Deauth</button>
-                    <button class="action-btn" data-cmd="sniffpmkid">Sniff PMKID</button>
-                    <button class="action-btn" data-cmd="sniffpwn">Sniff PWN</button>
+                    <button class="action-btn" data-cmd="scanap">🔍 Scan APs</button>
+                    <button class="action-btn" data-cmd="scansta">🔍 Scan STAs</button>
+                    <button class="action-btn" data-cmd="scanall">🌐 Scan All</button>
+                    <button class="action-btn" data-cmd="stopscan">⏹ Stop Scan</button>
+                    <button class="action-btn" data-cmd="list -a">📋 List APs</button>
+                    <button class="action-btn" data-cmd="list -s">📋 List STAs</button>
+                    <button class="action-btn" data-cmd="list -c">📋 Captures</button>
                 </div>
                 
                 <div class="divider"></div>
                 
-                <div class="subheading cyan">Attacks & Spam</div>
+                <div class="subheading cyan">Sniffers</div>
                 <div class="btn-grid">
-                    <button class="action-btn attack-btn btn-deauth" data-cmd="attack -t deauth">Deauth All</button>
-                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t beacon">Beacon Spam</button>
-                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t rickroll">Rickroll</button>
-                    <button class="action-btn attack-btn btn-stop" data-cmd="stopattack">Stop Attack</button>
+                    <button class="action-btn" data-cmd="sniffbeacon">📶 Beacons</button>
+                    <button class="action-btn" data-cmd="sniffdeauth">💀 Deauth</button>
+                    <button class="action-btn" data-cmd="sniffpmkid">🔑 PMKID</button>
+                    <button class="action-btn" data-cmd="sniffpwn">⚡ PWN</button>
+                    <button class="action-btn" data-cmd="sniffesp">📻 ESP-NOW</button>
                 </div>
-            </div>
 
-            <div class="panel anim-4">
-                <div class="panel-title purple">Bluetooth Recon</div>
+                <div class="divider"></div>
+                
+                <div class="subheading red">Attacks & Spam</div>
                 <div class="btn-grid">
-                    <button class="action-btn" data-cmd="scanbt">Scan BT</button>
-                    <button class="action-btn" data-cmd="sniffbt">Sniff BT</button>
-                    <button class="action-btn" data-cmd="stopscan">Stop Scan</button>
-                    <button class="action-btn" style="color: var(--accent-purple); border-color: rgba(180, 0, 255, 0.2);" data-cmd="btspam">BT Spam</button>
+                    <button class="action-btn attack-btn btn-deauth" data-cmd="attack -t deauth">💀 Deauth Flood</button>
+                    <button class="action-btn attack-btn btn-deauth" data-cmd="attack -t deauth -c">🎯 Targeted Deauth</button>
+                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t beacon -l">📡 Beacon List</button>
+                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t beacon -r">🎲 Beacon Random</button>
+                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t beacon -a">👯 Clone APs</button>
+                    <button class="action-btn attack-btn btn-beacon" data-cmd="attack -t rickroll">🎵 Rickroll</button>
+                    <button class="action-btn attack-btn btn-deauth" data-cmd="attack -t probe">📨 Probe Flood</button>
+                    <button class="action-btn attack-btn btn-stop" data-cmd="stopscan">🛑 Stop Attack</button>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="subheading red">Advanced</div>
+                <div class="btn-grid-large">
+                    <button class="action-btn attack-btn btn-deauth" id="deauth-manual-btn" style="grid-column: span 2;">🎯 Manual Deauth Attack</button>
+                </div>
+            </section>
+
+            <!-- Bluetooth Panel -->
+            <section class="panel anim-4">
+                <div class="panel-title purple">
+                    <span class="icon purple">📶</span> Bluetooth
+                </div>
+                <div class="btn-grid">
+                    <button class="action-btn" data-cmd="sniffbt -t all">📡 Sniff All BLE</button>
+                    <button class="action-btn" data-cmd="sniffbt -t airtag">🏷 AirTags</button>
+                    <button class="action-btn" data-cmd="sniffbt -t flipper">🐬 Flipper</button>
+                    <button class="action-btn" data-cmd="sniffskim">💳 Skimmers</button>
+                    <button class="action-btn" data-cmd="btwardrive">🗺 Wardrive</button>
+                    <button class="action-btn" data-cmd="stopscan">⏹ Stop</button>
                 </div>
                 
                 <div class="divider"></div>
                 
-                <div class="subheading purple">BLE Devices <span class="tag" id="device-count">0</span></div>
+                <div class="subheading purple">BLE Spam Attacks</div>
+                <div class="btn-grid">
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t all">💥 All Types</button>
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t ios">🍎 iOS</button>
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t android">🤖 Android</button>
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t samsung">📱 Samsung</button>
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t windows">🪟 Windows</button>
+                    <button class="action-btn btn-ble-spam" data-cmd="blespam -t google">🔍 Google</button>
+                </div>
+
+                <div class="divider"></div>
+                
+                <div class="subheading purple">BLE Devices <span class="tag purple" id="device-count">0</span></div>
                 <div class="table-wrap">
                     <table>
                         <thead>
@@ -109,37 +187,82 @@
                             </tr>
                         </thead>
                         <tbody id="ble-table-body">
-                            <tr><td colspan="3" class="table-empty">No devices</td></tr>
+                            <tr><td colspan="3" class="table-empty">No devices discovered</td></tr>
                         </tbody>
                     </table>
                 </div>
-                <button class="btn-small" id="clear-ble-btn" style="margin-top: 12px; width: fit-content;">Clear List</button>
-            </div>
+                <button class="btn-small" id="clear-ble-btn" style="margin-top: 12px; width: fit-content;">🗑 Clear List</button>
+            </section>
 
-            <div class="panel anim-4">
-                <div class="panel-title red">Utility & System</div>
+            <!-- Utility & System Panel -->
+            <section class="panel anim-5">
+                <div class="panel-title orange">
+                    <span class="icon orange">⚙</span> System & Utility
+                </div>
                 <div class="btn-grid">
-                    <button class="action-btn" data-cmd="help">Show Help</button>
-                    <button class="action-btn" data-cmd="info">System Info</button>
-                    <button class="action-btn" data-cmd="list">List Files</button>
-                    <button class="action-btn" data-cmd="logs">Show Logs</button>
-                    <button class="action-btn" data-cmd="reboot">Reboot</button>
-                    <button class="action-btn" data-cmd="clearlist -a">Clear APs</button>
-                    <button class="action-btn" data-cmd="clearlist -s">Clear Stas</button>
-                    <button class="action-btn" data-cmd="update">Update Check</button>
+                    <button class="action-btn btn-system" data-cmd="help">❓ Help</button>
+                    <button class="action-btn btn-system" data-cmd="info">ℹ️ Info</button>
+                    <button class="action-btn btn-system" data-cmd="version">🏷 Version</button>
+                    <button class="action-btn btn-system" data-cmd="settings">⚙ Settings</button>
+                    <button class="action-btn btn-system" data-cmd="reboot">🔄 Reboot</button>
+                    <button class="action-btn btn-system" data-cmd="update">📦 Update</button>
                 </div>
                 
                 <div class="divider"></div>
                 
-                <div class="subheading red">Advanced Attack</div>
+                <div class="subheading orange">WiFi Channel</div>
                 <div class="btn-grid-large">
-                    <button class="action-btn" id="deauth-manual-btn" style="grid-column: span 2;">Manual Deauth Attack</button>
+                    <button class="action-btn btn-system" id="set-channel-btn">📻 Set Channel</button>
+                    <button class="action-btn btn-system" data-cmd="channel -g">📡 Get Channel</button>
                 </div>
+
+                <div class="divider"></div>
+                
+                <div class="subheading orange">LED Control</div>
+                <div class="btn-grid">
+                    <button class="action-btn btn-system" data-cmd="led -s">💡 LED On</button>
+                    <button class="action-btn btn-system" data-cmd="led -r">⬛ LED Off</button>
+                    <button class="action-btn btn-system" id="led-color-btn">🎨 Set Color</button>
+                </div>
+
+                <div class="divider"></div>
+                
+                <div class="subheading orange">PCAP Files</div>
+                <div class="btn-grid">
+                    <button class="action-btn btn-system" data-cmd="pcap list">📋 List</button>
+                    <button class="action-btn btn-system" data-cmd="pcap save">💾 Save</button>
+                    <button class="action-btn btn-system" data-cmd="pcap delete">🗑 Delete</button>
+                </div>
+
+                <div class="divider"></div>
+                
+                <div class="subheading red">Clear Lists</div>
+                <div class="btn-grid-large">
+                    <button class="action-btn" data-cmd="clearlist -a">🗑 Clear APs</button>
+                    <button class="action-btn" data-cmd="clearlist -s">🗑 Clear STAs</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- ═══ Modal Overlay ═══ -->
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal" id="modal">
+            <h2 class="modal-title" id="modal-title"></h2>
+            <p class="modal-desc" id="modal-desc"></p>
+            <div id="modal-fields"></div>
+            <div class="modal-actions">
+                <button class="modal-btn secondary" id="modal-cancel">Cancel</button>
+                <button class="modal-btn primary" id="modal-submit">Confirm</button>
             </div>
         </div>
     </div>
 
+    <!-- ═══ Toast Container ═══ -->
+    <div class="toast-container" id="toast-container"></div>
+
     <!-- Scripts -->
+    <script src="js/display.js"></script>
     <script src="js/control.js"></script>
 </body>
 </html>

@@ -1,0 +1,542 @@
+/* ═══════════════════════════════════════════════════════════════
+   MARAUDER DISPLAY EMULATOR
+   Virtual TFT screen replicating the ESP32 Marauder hardware display
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Display Housing (Bezel) ── */
+.display-housing {
+    background: #0a0a0e;
+    border: 2px solid #1a1a28;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow:
+        inset 0 2px 8px rgba(0,0,0,0.8),
+        0 4px 24px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,255,255,0.03);
+    position: relative;
+    overflow: hidden;
+    width: 260px;
+    flex-shrink: 0;
+}
+
+/* Subtle reflection on bezel top edge */
+.display-housing::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20%; right: 20%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+}
+
+/* ── TFT Screen ── */
+.tft-screen {
+    width: 100%;
+    aspect-ratio: 320 / 240;
+    background: #000000;
+    border-radius: 4px;
+    position: relative;
+    overflow: hidden;
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #00ff88;
+    image-rendering: pixelated;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.5);
+}
+
+/* Scanline overlay for CRT feel */
+.tft-screen::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 1px,
+        rgba(0, 0, 0, 0.08) 1px,
+        rgba(0, 0, 0, 0.08) 2px
+    );
+    pointer-events: none;
+    z-index: 5;
+}
+
+/* Screen power-on glow */
+.tft-screen.powered {
+    box-shadow:
+        inset 0 0 30px rgba(0, 255, 136, 0.03),
+        0 0 15px rgba(0, 255, 136, 0.05);
+}
+
+/* ── Status Bar (top of display) ── */
+.tft-statusbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 8px;
+    background: #0d1117;
+    border-bottom: 1px solid #1a2332;
+    font-size: 9px;
+    color: #4a9eff;
+    position: relative;
+    z-index: 2;
+}
+
+.tft-statusbar .tft-status-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.tft-statusbar .tft-status-right {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: #666;
+}
+
+.tft-conn-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #333;
+    transition: all 0.3s;
+}
+
+.tft-conn-dot.active {
+    background: #00ff88;
+    box-shadow: 0 0 6px #00ff88;
+}
+
+/* ── Main Content Area ── */
+.tft-content {
+    padding: 6px 8px;
+    height: calc(100% - 24px);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+/* ── Boot Screen ── */
+.tft-boot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 6px;
+    animation: tftFadeIn 0.5s ease;
+}
+
+.tft-boot .skull {
+    font-size: 28px;
+    line-height: 1;
+    animation: tftPulseGlow 2s ease-in-out infinite;
+}
+
+.tft-boot .title {
+    color: #00e5ff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.tft-boot .version {
+    color: #444;
+    font-size: 8px;
+    letter-spacing: 1px;
+}
+
+.tft-boot .loading-bar {
+    width: 60%;
+    height: 3px;
+    background: #111;
+    border-radius: 2px;
+    margin-top: 6px;
+    overflow: hidden;
+    position: relative;
+}
+
+.tft-boot .loading-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00e5ff, #b44dff);
+    border-radius: 2px;
+    animation: tftLoadBar 2.5s ease-in-out forwards;
+}
+
+/* ── Home / Menu Screen ── */
+.tft-menu {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-menu-title {
+    color: #00e5ff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #1a2332;
+    margin-bottom: 4px;
+}
+
+.tft-menu-items {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    overflow: hidden;
+}
+
+.tft-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 6px;
+    font-size: 10px;
+    color: #8a8f98;
+    border-radius: 2px;
+    transition: all 0.15s;
+}
+
+.tft-menu-item.active {
+    background: #00e5ff;
+    color: #000;
+    font-weight: 700;
+}
+
+.tft-menu-item .mi-icon {
+    font-size: 10px;
+    width: 14px;
+    text-align: center;
+}
+
+/* ── Scan Screen ── */
+.tft-scan {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-scan-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #1a2332;
+    margin-bottom: 4px;
+}
+
+.tft-scan-type {
+    color: #00e5ff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tft-scan-count {
+    color: #00ff88;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.tft-scan-animation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-height: 60px;
+    position: relative;
+}
+
+/* Radar animation */
+.tft-radar {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 255, 0.15);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tft-radar::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 255, 0.08);
+    transform: scale(0.65);
+}
+
+.tft-radar::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 229, 255, 0.04);
+    transform: scale(0.3);
+}
+
+.tft-radar .sweep {
+    position: absolute;
+    width: 50%;
+    height: 2px;
+    top: 50%;
+    left: 50%;
+    transform-origin: left center;
+    background: linear-gradient(90deg, rgba(0, 229, 255, 0.6), transparent);
+    animation: tftRadarSweep 2s linear infinite;
+}
+
+.tft-scan-results {
+    flex: 1;
+    overflow: hidden;
+    font-size: 9px;
+    color: #6e7280;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    margin-top: 4px;
+}
+
+.tft-scan-result-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 4px;
+    border-bottom: 1px solid #0d1117;
+    animation: tftSlideIn 0.2s ease;
+}
+
+.tft-scan-result-item .sr-name {
+    color: #00ff88;
+    max-width: 60%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tft-scan-result-item .sr-rssi {
+    color: #4a9eff;
+}
+
+/* ── Attack Screen ── */
+.tft-attack {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-attack .attack-icon {
+    font-size: 24px;
+    animation: tftPulseGlow 1s ease-in-out infinite;
+}
+
+.tft-attack .attack-type {
+    color: #ff3b5c;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.tft-attack .attack-status {
+    color: #ff8a9e;
+    font-size: 9px;
+    animation: tftBlink 1s step-end infinite;
+}
+
+.tft-attack .attack-target {
+    color: #666;
+    font-size: 8px;
+    margin-top: 2px;
+}
+
+/* ── Sniff Screen ── */
+.tft-sniff {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-sniff .sniff-icon {
+    font-size: 22px;
+    animation: tftPulseGlow 2s ease-in-out infinite;
+}
+
+.tft-sniff .sniff-type {
+    color: #00e5ff;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.tft-sniff .sniff-status {
+    color: #4a9eff;
+    font-size: 9px;
+}
+
+.tft-sniff .packet-counter {
+    color: #00ff88;
+    font-size: 14px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Idle Screen ── */
+.tft-idle {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-idle .idle-skull {
+    font-size: 20px;
+    opacity: 0.3;
+}
+
+.tft-idle .idle-text {
+    color: #333;
+    font-size: 9px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* ── Info/Help Screen ── */
+.tft-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    font-size: 9px;
+    animation: tftFadeIn 0.3s ease;
+}
+
+.tft-info .info-title {
+    color: #00e5ff;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #1a2332;
+    margin-bottom: 3px;
+}
+
+.tft-info .info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 2px 0;
+    color: #6e7280;
+}
+
+.tft-info .info-row .info-val {
+    color: #00ff88;
+}
+
+/* ── Bottom Nav Indicator ── */
+.tft-nav-indicator {
+    display: flex;
+    justify-content: center;
+    gap: 4px;
+    padding-top: 4px;
+    border-top: 1px solid #0d1117;
+    margin-top: auto;
+}
+
+.tft-nav-dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #222;
+}
+
+.tft-nav-dot.active {
+    background: #00e5ff;
+}
+
+/* ═══ DISPLAY ANIMATIONS ═══ */
+
+@keyframes tftFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes tftLoadBar {
+    0%   { width: 0; }
+    100% { width: 100%; }
+}
+
+@keyframes tftRadarSweep {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes tftPulseGlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50%      { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes tftBlink {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0; }
+}
+
+@keyframes tftSlideIn {
+    from { opacity: 0; transform: translateX(-8px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+
+/* ── Power LED on bezel ── */
+.display-power-led {
+    position: absolute;
+    bottom: 5px;
+    right: 14px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: #222;
+    transition: all 0.5s;
+}
+
+.display-power-led.on {
+    background: #00ff88;
+    box-shadow: 0 0 4px #00ff88, 0 0 8px rgba(0, 255, 136, 0.3);
+}
+
+/* ── Label on bezel ── */
+.display-label {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 7px;
+    color: #1a1a28;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    user-select: none;
+}
